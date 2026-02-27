@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
+import { LoginPage } from '@/pages/login'
+import { RegisterPage } from '@/pages/register'
 
 function PlaceholderPage({ title }: { title: string }) {
     return (
@@ -21,6 +23,9 @@ function App() {
                 closeButton
             />
             <Routes>
+                {/* Auth routes */}
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
                 {/* Public routes */}
                 <Route path="/login" element={<PlaceholderPage title="Login" />} />
                 <Route path="/register" element={<PlaceholderPage title="Register" />} />
