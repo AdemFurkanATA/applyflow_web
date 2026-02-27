@@ -26,6 +26,9 @@ function App() {
                 {/* Auth routes */}
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                {/* Public routes */}
+                <Route path="/login" element={<PlaceholderPage title="Login" />} />
+                <Route path="/register" element={<PlaceholderPage title="Register" />} />
 
                 {/* Protected routes with dashboard layout */}
                 <Route element={<DashboardLayout />}>
