@@ -1,26 +1,40 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Toaster } from 'react-hot-toast'
+import { Toaster } from 'sonner'
+import { DashboardLayout } from '@/components/layout/dashboard-layout'
+
+function PlaceholderPage({ title }: { title: string }) {
+    return (
+        <div className="animate-fade-in">
+            <h1 className="text-2xl font-bold mb-2">{title}</h1>
+            <p className="text-muted-foreground">This page will be implemented in upcoming issues.</p>
+        </div>
+    )
+}
 
 function App() {
     return (
         <BrowserRouter>
             <Toaster
                 position="top-right"
-                toastOptions={{
-                    duration: 3000,
-                    style: {
-                        background: 'hsl(var(--card))',
-                        color: 'hsl(var(--card-foreground))',
-                        border: '1px solid hsl(var(--border))',
-                    },
-                }}
+                theme="system"
+                richColors
+                closeButton
             />
             <Routes>
                 {/* Public routes */}
-                <Route path="/" element={<div className="flex items-center justify-center min-h-screen"><h1 className="text-4xl font-bold text-primary">ApplyFlow</h1></div>} />
+                <Route path="/login" element={<PlaceholderPage title="Login" />} />
+                <Route path="/register" element={<PlaceholderPage title="Register" />} />
 
-                {/* Catch all */}
-                <Route path="*" element={<Navigate to="/" replace />} />
+                {/* Protected routes with dashboard layout */}
+                <Route element={<DashboardLayout />}>
+                    <Route path="/dashboard" element={<PlaceholderPage title="Dashboard" />} />
+                    <Route path="/applications" element={<PlaceholderPage title="Job Applications" />} />
+                    <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
+                </Route>
+
+                {/* Redirects */}
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
         </BrowserRouter>
     )
