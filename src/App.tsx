@@ -23,19 +23,34 @@ function App() {
                 closeButton
             />
             <Routes>
-                {/* Auth routes */}
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                {/* Public routes */}
-                <Route path="/login" element={<PlaceholderPage title="Login" />} />
-                <Route path="/register" element={<PlaceholderPage title="Register" />} />
+                {/* Guest-only routes (redirect to dashboard if already logged in) */}
+                <Route path="/login" element={
+                    <GuestRoute>
+                        <PlaceholderPage title="Login" />
+                    </GuestRoute>
+                } />
+                <Route path="/register" element={
+                    <GuestRoute>
+                        <PlaceholderPage title="Register" />
+                    </GuestRoute>
+                } />
 
-                {/* Protected routes with dashboard layout */}
-                <Route element={<DashboardLayout />}>
-                    <Route path="/dashboard" element={<PlaceholderPage title="Dashboard" />} />
-                    <Route path="/applications" element={<PlaceholderPage title="Job Applications" />} />
-                    <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
-                </Route>
+                {/* Protected routes (redirect to login if not authenticated) */}
+                <Route path="/dashboard" element={
+                    <ProtectedRoute>
+                        <PlaceholderPage title="Dashboard" />
+                    </ProtectedRoute>
+                } />
+                <Route path="/applications" element={
+                    <ProtectedRoute>
+                        <PlaceholderPage title="Applications" />
+                    </ProtectedRoute>
+                } />
+                <Route path="/settings" element={
+                    <ProtectedRoute>
+                        <PlaceholderPage title="Settings" />
+                    </ProtectedRoute>
+                } />
 
                 {/* Redirects */}
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
