@@ -1,12 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Toaster } from 'react-hot-toast'
-import { ProtectedRoute } from '@/components/auth/protected-route'
-import { GuestRoute } from '@/components/auth/guest-route'
+import { Toaster } from 'sonner'
+import { DashboardLayout } from '@/components/layout/dashboard-layout'
+import { LoginPage } from '@/pages/login'
+import { RegisterPage } from '@/pages/register'
 
 function PlaceholderPage({ title }: { title: string }) {
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <h1 className="text-4xl font-bold text-primary">{title}</h1>
+        <div className="animate-fade-in">
+            <h1 className="text-2xl font-bold mb-2">{title}</h1>
+            <p className="text-muted-foreground">This page will be implemented in upcoming issues.</p>
         </div>
     )
 }
@@ -16,14 +18,9 @@ function App() {
         <BrowserRouter>
             <Toaster
                 position="top-right"
-                toastOptions={{
-                    duration: 3000,
-                    style: {
-                        background: 'hsl(var(--card))',
-                        color: 'hsl(var(--card-foreground))',
-                        border: '1px solid hsl(var(--border))',
-                    },
-                }}
+                theme="system"
+                richColors
+                closeButton
             />
             <Routes>
                 {/* Guest-only routes (redirect to dashboard if already logged in) */}
